@@ -42,16 +42,16 @@ const Navbar = () => {
           <div className="flex items-center gap-2 sm:gap-3">
             <button
               onClick={() => navigate("/buy")}
-              className="flex items-center gap-2 bg-blue-100 px-4 sm:px-6 py-1.5 sm:py-3 rounded-full hover:scale-105 transition-all duration-700"
+              className="flex items-center gap-2 bg-blue-100 px-4 sm:px-6 py-1.5 sm:py-3 rounded-full hover:scale-105 transition-all duration-700 cursor-pointer"
             >
-              <img className="w-5" src={assets.credit_star} alt="" />
-              <p className="text-xs sm;text-sm font-medium text-gray-600">
+              <img className="w-5 cursor-pointer" src={assets.credit_star} alt="" />
+              <p className="text-xs sm:text-sm font-medium text-gray-600 cursor-pointer">
                 Credits left: {credit}
               </p>
             </button>
-            <p className="text-gray-600 max-sm:hidden pl-4">Hi! {user.name}</p>
+            <p className="text-gray-600 max-sm:hidden pl-4 cursor-default">Hi! {user.name}</p>
             <div
-              className="relative group"
+              className="relative group cursor-pointer"
               ref={dropdownRef}
             >
               <img
@@ -64,10 +64,23 @@ const Navbar = () => {
               <div
                 className={`absolute ${
                   dropdownOpen ? "block" : "hidden"
-                } group-hover:block top-0 right-0 z-10 text-black rounded pt-12`}
+                } group-hover:block top-0 right-0 z-20 text-black rounded pt-12`}
               >
-                <ul className="list-none m-0 p-2 bg-white rounded-md border text-sm">
-                  <li onClick={logout} className="py-1 px-2 cursor-pointer pr-10">Logout</li>
+                {/* Caret/triangle indicator */}
+                <div className="absolute right-4 top-9 w-0 h-0 border-l-8 border-r-8 border-b-8 border-l-transparent border-r-transparent border-b-white"></div>
+                <ul className="list-none m-0 p-0 bg-white rounded-lg border shadow-lg text-sm min-w-[160px] overflow-hidden">
+                  {/* Show user name on mobile inside dropdown */}
+                  <li className="py-3 px-4 sm:hidden font-semibold text-gray-800 cursor-default bg-gray-50">
+                    Hi! {user.name}
+                  </li>
+                  {/* Divider for mobile */}
+                  <li className="sm:hidden border-t border-gray-200 my-0"></li>
+                  <li
+                    onClick={logout}
+                    className="py-3 px-4 hover:bg-gray-100 transition-colors cursor-pointer text-gray-700 font-medium"
+                  >
+                    Logout
+                  </li>
                 </ul>
               </div>
             </div>

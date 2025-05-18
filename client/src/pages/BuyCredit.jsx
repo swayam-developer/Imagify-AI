@@ -60,7 +60,7 @@ const BuyCredit = () => {
     try {
       if (!user) {
         setShowLogin(true);
-        return;
+        return; // Prevent further execution and error toasts if not logged in
       }
       const { data } = await axios.post(
         backendUrl + "/api/payment/create-order",
@@ -75,7 +75,10 @@ const BuyCredit = () => {
         toast.error(data.message || "Payment initialization failed");
       }
     } catch (error) {
-      toast.error(error?.response?.data?.message || error.message);
+      // Only show error toast if user is logged in
+      if (user) {
+        toast.error(error?.response?.data?.message || error.message);
+      }
     }
   };
 

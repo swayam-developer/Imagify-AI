@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useRef, useState, useEffect } from "react";
 import { assets } from "../assets/assets";
 import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
@@ -6,6 +6,31 @@ import { AppContext } from "../context/AppContext";
 const Navbar = () => {
   const { user, setShowLogin, logout, credit } = useContext(AppContext);
   const navigate = useNavigate();
+
+  // Add state for dropdown visibility
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target)
+      ) {
+        setDropdownOpen(false);
+      }
+    }
+    if (dropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownOpen]);
+
   return (
     <div className="flex items-center justify-between py-4">
       <Link to="/">
@@ -25,13 +50,22 @@ const Navbar = () => {
               </p>
             </button>
             <p className="text-gray-600 max-sm:hidden pl-4">Hi! {user.name}</p>
-            <div className="relative group">
+            <div
+              className="relative group"
+              ref={dropdownRef}
+            >
               <img
-                className="w-10 drop-shadow-2xl"
+                className="w-10 drop-shadow-2xl cursor-pointer"
                 src={assets.profile_icon}
                 alt=""
+                onClick={() => setDropdownOpen((prev) => !prev)}
               />
-              <div className="absolute hidden group-hover:block top-0 right-0 z-10 text-black rounded pt-12">
+              {/* Show dropdown on hover (desktop) or when dropdownOpen (mobile) */}
+              <div
+                className={`absolute ${
+                  dropdownOpen ? "block" : "hidden"
+                } group-hover:block top-0 right-0 z-10 text-black rounded pt-12`}
+              >
                 <ul className="list-none m-0 p-2 bg-white rounded-md border text-sm">
                   <li onClick={logout} className="py-1 px-2 cursor-pointer pr-10">Logout</li>
                 </ul>

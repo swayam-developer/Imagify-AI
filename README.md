@@ -1,6 +1,10 @@
 # Imagify - AI Image Generator
 
+<img width="844" height="549" alt="imagifyPoster" src="https://github.com/user-attachments/assets/fa2f61ef-4be7-480c-9a82-5f5f85ee9fd1" />
+
+
 ## Overview
+
 
 Imagify is a full-stack web application that allows users to generate images from text prompts using AI, manage their credits, and purchase more credits via Razorpay integration.
 
@@ -125,3 +129,4 @@ git commit -m "first commit"
 git branch -M main
 git remote add origin https://github.com/swayam-developer/Imagify-AI.git
 git push -u origin main
+

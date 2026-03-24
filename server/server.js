@@ -25,6 +25,15 @@ app.get("/", (req, res) => {
   res.send("Api working");
 });
 
+// Server Health check endpoint
+app.get("/api/health", (req, res) => {
+  res.status(200).json({
+    status: "OK",
+    uptime: process.uptime(),
+    timestamp: new Date()
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

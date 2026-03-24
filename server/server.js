@@ -14,14 +14,6 @@ const app = express();
 
 configDotenv();
 
-app.use(
-  cors({
-    origin: ["https://imagify-ai-eight.vercel.app/"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  }),
-);
-
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
